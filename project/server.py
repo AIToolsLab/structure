@@ -73,16 +73,25 @@ EMBEDDING_MODEL = "text-embedding-ada-002"
 #     "However, my mother will always be by my side."
 # ]
 
-
-
 memory = Memory("./joblib_cache", verbose = 0)
 
+# Note:
+# Rate limiting is already implemented in https://github.com/openai/openai-python/blob/main/openai/embeddings_utils.py
+# So we don't need to implement it here.
+# If we did, we could do something like:
+# get_embedding_ratelimited = retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(6))(get_embedding)
+
+# Cache the embeddings so we don't have to request them every time (and pay for it)
 @memory.cache
+def get_embedding_cached(text):
+    # Use the embedding model specified by EMBEDDING_MODEL
+    return get_embedding(text, engine=EMBEDDING_MODEL)
+
 def get_distances_from_query_list(query_list, texts):
-    list_emb = [get_embedding(text) for text in texts]
+    list_emb = [get_embedding_cached(text) for text in texts]
     distances = []
     for query in query_list:
-        query_emb = get_embedding(query)
+        query_emb = get_embedding_cached(query)
         distances.append(distances_from_embeddings(query_emb, list_emb))
     return distances
 
