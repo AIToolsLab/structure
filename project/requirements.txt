@@ -5,6 +5,5 @@ openai
 pandas
 python-dotenv
 joblib
-query_emb
 
 # os.system('python -m spacy download en_core_web_sm')
