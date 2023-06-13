@@ -26,8 +26,9 @@ import spacy
 nlp = spacy.load("en_core_web_sm")
 
 dotenv.load_dotenv()
-openai.organization = "org-9bUDqwqHW2Peg4u47Psf9uUo"
+#openai.organization = "org-9bUDqwqHW2Peg4u47Psf9uUo"
 openai.api_key = os.getenv("OPENAI_API_KEY")
+print(repr(openai.api_key))
 
 # EMBEDDINGS
 
