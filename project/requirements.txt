@@ -1,0 +1,8 @@
+spacy
+fastapi
+uvicorn
+openai
+pandas
+python-dotenv
+
+# os.system('python -m spacy download en_core_web_sm')

@@ -1,23 +1,5 @@
 import os
 
-# os.system('pip install -U pip setuptools wheel')
-# os.system('pip install -U spacy')
-# os.system('python -m spacy download en_core_web_sm')
-# os.system('pip install nest_asyncio fastapi uvicorn')
-# os.system('pip install openai')
-# os.system('pip install pandas')
-# os.system('pip install numpy')
-# os.system('pip install python-dotenv')
-
-# os.system('pip install matplotlib')
-# os.system('pip install plotly')
-# os.system('pip install scipy')
-# os.system('pip install sklearn')
-# os.system('pip install scikit-learn')
-os.system('pip install -U spacy')
-os.system('python3 -m spacy download en_core_web_sm')
-
-
 # load environment variables
 import dotenv
 import openai
