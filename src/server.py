@@ -20,8 +20,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
-# spacy.cli.download('en_core_web_sm')
-
 nlp = spacy.load('en_core_web_sm')
 
 dotenv.load_dotenv()
