@@ -1,0 +1,13 @@
+{
+  "name": "structure",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/AIToolsLab/structure.git",
+  "author": "Ray Cai Flanagan <hjkareus@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.3.1",
+    "eslint": "^8.43.0",
+    "typescript": "^5.1.3"
+  }
+}

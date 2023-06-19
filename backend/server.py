@@ -274,9 +274,9 @@ app.add_middleware(
     allow_headers=['*'], 
 ) 
 
-@app.get('/', response_class=HTMLResponse) 
-def read_root(): 
-    return open('index.html').read()
+# @app.get('/', response_class=HTMLResponse) 
+# def read_root(): 
+#     return open('index.html').read()
 
 app.mount('/styles', StaticFiles(directory='styles'), name='styles')
 
