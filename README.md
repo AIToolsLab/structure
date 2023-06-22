@@ -15,3 +15,8 @@ In the terminal:
     We'll get the API key in the next step.
 4. Go to [OpenAI API keys](https://platform.openai.com/account/api-keys) to get an API key. Replace `YOUR_API_KEY` in the `.env` file with the API key you just copied.
 5. Run `python server.py` to run the server.
+6. Run `tsc`
+7. Open the webpage
+ - If you're using VSCode, you can use the [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) extension to open the webpage.
+ - Another option is to directly open the `index.html` file in your browser
+ 

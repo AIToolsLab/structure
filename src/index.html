@@ -8,18 +8,24 @@
     </head>
 
     <body>
+        <div id="loading" class="hidden">
+            <div>
+                Loading...
+            </div>
+        </div>
+
         <div class="analyze-button-container">
-            <button onclick="analyze()">Analyze</button>
+            <button id="analyze-btn">Analyze</button>
         </div>
 
         <div class="content-container">
-            <div class="container" id="outline-text-id">
+            <div class="container" id="outline-text">
                 <h2 id="outline-title">Your outline</h2>
                 
                 <textarea id="outline-textarea"></textarea>
             </div>
     
-            <div class="container" id="essay-text-id">
+            <div class="container" id="essay-text">
                 <h2 id="essay-title">Your essay</h2>
                 
                 <textarea id="essay-textarea"></textarea>

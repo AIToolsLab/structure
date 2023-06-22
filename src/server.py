@@ -262,8 +262,10 @@ class TextPayload(BaseModel):
     essay: str
 
 origins = [ 
-    'http://localhost', 
-    'http://localhost:8080', 
+    'http://localhost',
+    'http://localhost:8080',
+    'http://localhost:5500',
+    'http://127.0.0.1:5500',
 ] 
 
 app.add_middleware( 
@@ -273,12 +275,6 @@ app.add_middleware(
     allow_methods=['*'], 
     allow_headers=['*'], 
 ) 
-
-@app.get('/', response_class=HTMLResponse) 
-def read_root(): 
-    return open('index.html').read()
-
-app.mount('/styles', StaticFiles(directory='src/styles'), name='styles')
 
 @app.get('/items/{item_id}') 
 def read_item(item_id: int, q: Optional[str] = None): 
@@ -301,8 +297,6 @@ async def read_items(payload: TextPayload):
 # async def read_items():
 #     data = (all_logprobs)
 #     return data
-
-
 
 @app.post('/analyze')
 async def analyze_post_request(payload: TextPayload):
@@ -336,10 +330,6 @@ async def analyze_post_request(payload: TextPayload):
     all_logprobs = allLogProbs(res, essay_sections, question_w_outline)
 
     return (distances, all_logprobs)
-
-
-
-
 
 @app.get('/item')
 async def read_items():
@@ -377,5 +367,3 @@ import uvicorn
 
 nest_asyncio.apply() 
 uvicorn.run(app, port=8000) 
-
-
