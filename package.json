@@ -1,14 +1,22 @@
 {
-  "name": "structure",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/AIToolsLab/structure.git",
-  "author": "Ray Cai Flanagan <hjkareus@gmail.com>",
-  "license": "MIT",
+  "name": "summary-comparison",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1"
+  },
   "devDependencies": {
-    "@types/node": "^20.3.1",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
     "eslint": "^8.43.0",
     "typescript": "^5.1.3"
-  },
-  "dependencies": {}
+  }
 }
