@@ -3,7 +3,6 @@
         "browser": true,
         "es2021": true
     },
-    "extends": "next/core-web-vitals",
     "root": true,
     "overrides": [],
     "parser": "@typescript-eslint/parser",
@@ -17,7 +16,6 @@
     },
     "plugins": ["react", "@typescript-eslint"],
     "rules": {
-        "@next/next/no-img-element": "off",
         "no-constant-condition": "error",
         "no-dupe-else-if": "error",
         "no-dupe-args": "error",
