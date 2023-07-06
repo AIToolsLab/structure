@@ -129,6 +129,7 @@ def all_unique_pos(lst, element):
 # original_text = ' '.join(sentences)
 # original_text
 
+
 # full_request = question_w_outline + original_text
 
 def full_request_template(question, sents):
@@ -249,8 +250,6 @@ def create_prompt(outline_sections):
     outline += '\n'  # add a newline character at the end
     return outline
 
-
-
 # HOST WEB
 
 app = FastAPI() 
@@ -367,3 +366,8 @@ import uvicorn
 
 nest_asyncio.apply() 
 uvicorn.run(app, port=8000)
+
+# %%
+
+
+inter

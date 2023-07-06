@@ -1,8 +1,8 @@
 import { useRef } from 'react';
 
-import SummaryCard from '../components/summaryCard';
+import Editor from '../components/editor';
 
-import analyze from '../helpers/analyze';
+import SummaryCard from '../components/summaryCard';
 
 import classes from './styles.module.css';
 
@@ -16,60 +16,53 @@ Art Spiegelman's Maus and Anthony Giacchino's Colette are two powerful works tha
 `;
 
 export default function App() {
-    const essayRef = useRef({} as HTMLDivElement);
-
     const CARD_TESTS = [
         {
             title: 'Test 1',
-            summary: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum veritatis sit, cumque quidem voluptatibus ut sunt maxime minus maiores, corporis corrupti aliquid, dicta tenetur quas? Non fugiat reprehenderit amet. Libero provident officiis fugit, velit quas nobis eum vero maxime officia eveniet molestias soluta a repellendus quos sapiente repudiandae mollitia quam, ab asperiores in cum id exercitationem? Quidem ipsa itaque harum laboriosam magni. Quibusdam deleniti expedita, accusantium, dignissimos minus praesentium sequi laudantium qui sapiente dolorum accusamus similique iusto voluptate cumque alias sint delectus pariatur? Veritatis fugiat ipsam facere id deleniti sint officiis voluptatem perspiciatis repellat, omnis officia sapiente nobis vel vero!',
+            summary:
+                'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum veritatis sit, cumque quidem voluptatibus ut sunt maxime minus maiores, corporis corrupti aliquid, dicta tenetur quas? Non fugiat reprehenderit amet. Libero provident officiis fugit, velit quas nobis eum vero maxime officia eveniet molestias soluta a repellendus quos sapiente repudiandae mollitia quam, ab asperiores in cum id exercitationem? Quidem ipsa itaque harum laboriosam magni. Quibusdam deleniti expedita, accusantium, dignissimos minus praesentium sequi laudantium qui sapiente dolorum accusamus similique iusto voluptate cumque alias sint delectus pariatur? Veritatis fugiat ipsam facere id deleniti sint officiis voluptatem perspiciatis repellat, omnis officia sapiente nobis vel vero!',
             start: 0,
-            end: 100
+            end: 100,
         },
         {
             title: 'Test 2',
-            summary: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum veritatis sit, cumque quidem voluptatibus ut sunt maxime minus maiores, corporis corrupti aliquid, dicta tenetur quas? Non fugiat reprehenderit amet. Libero provident officiis fugit, velit quas nobis eum vero maxime officia eveniet molestias soluta a repellendus quos sapiente repudiandae mollitia quam, ab asperiores in cum id exercitationem? Quidem ipsa itaque harum laboriosam magni. Quibusdam deleniti expedita, accusantium, dignissimos minus praesentium sequi laudantium qui sapiente dolorum accusamus similique iusto voluptate cumque alias sint delectus pariatur? Veritatis fugiat ipsam facere id deleniti sint officiis voluptatem perspiciatis repellat, omnis officia sapiente nobis vel vero!',
+            summary:
+                'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum veritatis sit, cumque quidem voluptatibus ut sunt maxime minus maiores, corporis corrupti aliquid, dicta tenetur quas? Non fugiat reprehenderit amet. Libero provident officiis fugit, velit quas nobis eum vero maxime officia eveniet molestias soluta a repellendus quos sapiente repudiandae mollitia quam, ab asperiores in cum id exercitationem? Quidem ipsa itaque harum laboriosam magni. Quibusdam deleniti expedita, accusantium, dignissimos minus praesentium sequi laudantium qui sapiente dolorum accusamus similique iusto voluptate cumque alias sint delectus pariatur? Veritatis fugiat ipsam facere id deleniti sint officiis voluptatem perspiciatis repellat, omnis officia sapiente nobis vel vero!',
             start: 110,
-            end: 200
+            end: 200,
         },
         {
             title: 'Test 3',
-            summary: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum veritatis sit, cumque quidem voluptatibus ut sunt maxime minus maiores, corporis corrupti aliquid, dicta tenetur quas? Non fugiat reprehenderit amet. Libero provident officiis fugit, velit quas nobis eum vero maxime officia eveniet molestias soluta a repellendus quos sapiente repudiandae mollitia quam, ab asperiores in cum id exercitationem? Quidem ipsa itaque harum laboriosam magni. Quibusdam deleniti expedita, accusantium, dignissimos minus praesentium sequi laudantium qui sapiente dolorum accusamus similique iusto voluptate cumque alias sint delectus pariatur? Veritatis fugiat ipsam facere id deleniti sint officiis voluptatem perspiciatis repellat, omnis officia sapiente nobis vel vero!',
+            summary:
+                'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum veritatis sit, cumque quidem voluptatibus ut sunt maxime minus maiores, corporis corrupti aliquid, dicta tenetur quas? Non fugiat reprehenderit amet. Libero provident officiis fugit, velit quas nobis eum vero maxime officia eveniet molestias soluta a repellendus quos sapiente repudiandae mollitia quam, ab asperiores in cum id exercitationem? Quidem ipsa itaque harum laboriosam magni. Quibusdam deleniti expedita, accusantium, dignissimos minus praesentium sequi laudantium qui sapiente dolorum accusamus similique iusto voluptate cumque alias sint delectus pariatur? Veritatis fugiat ipsam facere id deleniti sint officiis voluptatem perspiciatis repellat, omnis officia sapiente nobis vel vero!',
             start: 300,
-            end: 350
+            end: 350,
         },
         {
             title: 'Test 4',
-            summary: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum veritatis sit, cumque quidem voluptatibus ut sunt maxime minus maiores, corporis corrupti aliquid, dicta tenetur quas? Non fugiat reprehenderit amet. Libero provident officiis fugit, velit quas nobis eum vero maxime officia eveniet molestias soluta a repellendus quos sapiente repudiandae mollitia quam, ab asperiores in cum id exercitationem? Quidem ipsa itaque harum laboriosam magni. Quibusdam deleniti expedita, accusantium, dignissimos minus praesentium sequi laudantium qui sapiente dolorum accusamus similique iusto voluptate cumque alias sint delectus pariatur? Veritatis fugiat ipsam facere id deleniti sint officiis voluptatem perspiciatis repellat, omnis officia sapiente nobis vel vero!',
+            summary:
+                'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum veritatis sit, cumque quidem voluptatibus ut sunt maxime minus maiores, corporis corrupti aliquid, dicta tenetur quas? Non fugiat reprehenderit amet. Libero provident officiis fugit, velit quas nobis eum vero maxime officia eveniet molestias soluta a repellendus quos sapiente repudiandae mollitia quam, ab asperiores in cum id exercitationem? Quidem ipsa itaque harum laboriosam magni. Quibusdam deleniti expedita, accusantium, dignissimos minus praesentium sequi laudantium qui sapiente dolorum accusamus similique iusto voluptate cumque alias sint delectus pariatur? Veritatis fugiat ipsam facere id deleniti sint officiis voluptatem perspiciatis repellat, omnis officia sapiente nobis vel vero!',
             start: 400,
-            end: 500
+            end: 500,
         },
-    ];
+    ];    
 
     return (
         <div className={ classes.container }>
             <div className={ classes.essayContainer }>
-                <div
-                    ref={ essayRef }
-                    className={ classes.editor }
-                    contentEditable={ true }
-                >
+                <Editor />
+
+                <div className={ classes.cardsContainer }>
                     {
-                        ESSAY.split(' ').map(
-                            (word, index) => (
-                                <span key={ index }>{ word } </span>
+                        CARD_TESTS.map(
+                            (card, index) => (
+                                <SummaryCard key={ index } card={ card } />
                             )
                         )
                     }
                 </div>
             </div>
 
-            <div className={ classes.cardsContainer }>
-                {
-                    CARD_TESTS.map((card, index) => (
-                        <SummaryCard key={ index } card={ card } />
-                    ))
-                }
-            </div>
         </div>
     );
 }

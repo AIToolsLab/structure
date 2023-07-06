@@ -1,4 +1,4 @@
-import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { GrClose } from 'react-icons/gr';
 
 import classes from './styles.module.css';
 
@@ -13,7 +13,7 @@ export default function SummaryCard(props: SummaryCardProps) {
             <div className={ classes.header }>
                 <h1>{ props.card.title }</h1>
 
-                <AiOutlineCloseCircle onClick={ props.onDelete } fontSize={ 20 } className={ classes.closeBtn } />
+                <GrClose onClick={ props.onDelete } fontSize={ 20 } className={ classes.closeBtn } />
             </div>
 
             <div onClick={ props.onDelete } className={ classes.cardContent }>

@@ -1,29 +1,13 @@
 .container {
     display: flex;
-    gap: 32px;
-
-    justify-content: space-between;
-    margin: 20px;
+    margin: 15px;
 }
 
 .essayContainer {
     display: flex;
+    justify-content: center;
+    width: 100%;
     gap: 16px;
-    width: 70%;
-}
-
-.editor {
-    overflow-y: scroll;
-    height: 90vh;
-    background: none;
-    outline: none;
-    padding: 15px;
-    font-family: var(--font-family);
-    resize: none;
-    border-radius: 5px;
-    line-height: 1.5rem;
-    font-weight: bolder;
-    border: 1px solid black;
 }
 
 .cardsContainer {
@@ -31,5 +15,4 @@
     flex-direction: column;
     gap: 16px;
     width: 30%;
-    /* TODO: create scrollable container? */
 }

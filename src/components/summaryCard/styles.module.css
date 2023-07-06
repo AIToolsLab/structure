@@ -1,12 +1,17 @@
 .container {
-    background: rgb(45, 45, 45);
-    color: white;
+    background: rgba(209, 235, 253, 0.459);
     font-weight: bolder;
     transition: 0.2s;
+    cursor: pointer;
     border-radius: 5px;
 }
 
+.container:hover {
+    background: rgba(209, 235, 253, 0.671);
+}
+
 .header {
+    margin-top: 10px;
     padding: 5px 20px;
     display: flex;
     justify-content: space-between;
@@ -18,23 +23,25 @@
 }
 
 .closeBtn {
+    align-self: center;
     cursor: pointer;
     transition: 0.2s;
     z-index: 999;
+    padding: 10px;
+    border-radius: 999px;
 }
 
 .closeBtn:hover {
-    color: gold;
+    color: maroon;
+    background: rgba(0, 0, 0, 0.1);
 }
 
 .cardContent {
     padding: 5px 20px;
+    font-weight: 100;
+    line-height: 20px;
 
-    cursor: pointer;
     font-size: 12px;
     transition: 0.2s;
 }
 
-.cardContent:hover {
-    background: rgba(255, 255, 255, 0.073);
-}
