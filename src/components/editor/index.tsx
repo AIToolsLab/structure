@@ -1,10 +1,9 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
     $getRoot,
     $createRangeSelection,
     $isParagraphNode,
     ParagraphNode,
-    
 } from 'lexical';
 import { $patchStyleText } from '@lexical/selection';
 
@@ -56,7 +55,9 @@ const HighlightSearchButton = () => {
                         (selection.focus.key = paragraphNode.getKey()),
                         (selection.focus.offset = index + searchStr.length);
 
-                    $patchStyleText(selection, { 'background-color': '#22f3bc' });
+                    $patchStyleText(selection, {
+                        'background-color': '#22f3bc',
+                    });
                 }
             }
         });
@@ -65,18 +66,30 @@ const HighlightSearchButton = () => {
     return <button onClick={ handleClick }>Highlight Search</button>;
 };
 
-export default function Editor() {
+function CommentPlugin(props: { focused: null | Card }) {
+    const [editor] = useLexicalComposerContext();
+
+    editor.update(() => {
+        if(!props.focused) return;
+        
+        const selection = $createRangeSelection();
+        console.log(selection.getNodes());
+
+        (selection.anchor.key = selection.getNodes()[0].getKey()),
+        (selection.anchor.offset = props.focused.start),
+        // (selection.focus.key = paragraphNode.getKey()),
+        // (selection.focus.offset = index + searchStr.length);
+
+        $patchStyleText(selection, { 'background-color': '#22f3bc' });
+    });
+
+    return <></>;
+}
+
+export default function Editor(props: { focused: null | Card }) {
     let updateSummariesTimeout: NodeJS.Timeout | null = null;
-    
-    function MyCustomAutoFocusPlugin() {
-        const [editor] = useLexicalComposerContext();
 
-        useEffect(() => {
-            editor.focus();
-        }, [editor]);
-
-        return null;
-    }
+    const textState = useState('');
 
     return (
         <>
@@ -102,22 +115,29 @@ export default function Editor() {
                         onChange={ (editorState) => {
                             editorState.read(() => {
                                 const root = $getRoot();
-                                const text = root.getTextContent();
-                                
-                                if(updateSummariesTimeout) {
+                                const fullText = root.getTextContent();
+                                const paragraphs = root
+                                    .getAllTextNodes()
+                                    .map((node) => node.getTextContent());
+
+                                if (fullText === textState[0]) return;
+
+                                textState[0] = fullText;
+
+                                if (updateSummariesTimeout) {
                                     clearTimeout(updateSummariesTimeout);
                                     updateSummariesTimeout = null;
                                 }
 
                                 updateSummariesTimeout = setTimeout(() => {
-                                    console.log(text);
+                                    console.log(paragraphs);
                                 }, 1000);
                             });
                         } }
                     />
 
                     <HistoryPlugin />
-                    <MyCustomAutoFocusPlugin />
+                    <CommentPlugin focused={ props.focused } />
                 </div>
             </LexicalComposer>
         </>

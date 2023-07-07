@@ -1,7 +1,6 @@
-import { useRef } from 'react';
+import { useState } from 'react';
 
 import Editor from '../components/editor';
-
 import SummaryCard from '../components/summaryCard';
 
 import classes from './styles.module.css';
@@ -16,7 +15,7 @@ Art Spiegelman's Maus and Anthony Giacchino's Colette are two powerful works tha
 `;
 
 export default function App() {
-    const CARD_TESTS = [
+    const CARD_TESTS: Card[] = [
         {
             title: 'Test 1',
             summary:
@@ -45,18 +44,20 @@ export default function App() {
             start: 400,
             end: 500,
         },
-    ];    
+    ];
+
+    const [focused, updateFocused] = useState<number | null>(null);
 
     return (
         <div className={ classes.container }>
             <div className={ classes.essayContainer }>
-                <Editor />
+                <Editor focused={ (focused !== null ? CARD_TESTS[focused] : null) } />
 
                 <div className={ classes.cardsContainer }>
                     {
                         CARD_TESTS.map(
                             (card, index) => (
-                                <SummaryCard key={ index } card={ card } />
+                                <SummaryCard cardIndex={ index } key={ index } card={ card } selected={ index === focused } onClick={ updateFocused } />
                             )
                         )
                     }
