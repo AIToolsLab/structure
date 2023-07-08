@@ -66,27 +66,62 @@ const HighlightSearchButton = () => {
     return <button onClick={ handleClick }>Highlight Search</button>;
 };
 
-function CommentPlugin(props: { focused: null | Card }) {
+function CommentPlugin(props: { focused: null | Card; focusedIndex: number | null }) {
     const [editor] = useLexicalComposerContext();
 
     editor.update(() => {
-        if(!props.focused) return;
-        
+        (function clearStyles() {
+            const selection = $createRangeSelection();
+            const nodeMap = editor.getEditorState()._nodeMap;
+
+            const keys: string[] = [];
+
+            nodeMap.forEach(
+                (k, v) => {
+                    const node = k;
+
+                    if(node.getType() !== 'text') return;
+
+                    keys.push(node.getKey());
+                }
+            );
+
+            if(keys.length === 0) return;
+
+            selection.anchor.key = keys[0];
+            selection.focus.key = keys[keys.length - 1];
+            $patchStyleText(selection, { 'background-color': 'none' });
+        })();
+
+        if(!props.focused || props.focusedIndex === null) return;
+
         const selection = $createRangeSelection();
-        console.log(selection.getNodes());
+        const nodeMap = editor.getEditorState()._nodeMap;
 
-        (selection.anchor.key = selection.getNodes()[0].getKey()),
-        (selection.anchor.offset = props.focused.start),
-        // (selection.focus.key = paragraphNode.getKey()),
-        // (selection.focus.offset = index + searchStr.length);
+        let paragraphKey: string = '';
+        let count = 0;
 
-        $patchStyleText(selection, { 'background-color': '#22f3bc' });
+        nodeMap.forEach(
+            (k, v) => {
+                const node = k;
+
+                if(node.getType() !== 'text') return;
+                if(count === props.focusedIndex) paragraphKey = node.getKey();
+                
+                count++;
+            }
+        );
+
+        selection.anchor.key = paragraphKey;
+        selection.focus.key = (Number(paragraphKey) + 1).toString();
+
+        $patchStyleText(selection, { 'background-color': 'rgba(255, 255, 146, 0.637)' });
     });
 
     return <></>;
 }
 
-export default function Editor(props: { focused: null | Card }) {
+export default function Editor(props: { focused: null | Card; focusedIndex: number | null }) {
     let updateSummariesTimeout: NodeJS.Timeout | null = null;
 
     const textState = useState('');
@@ -130,14 +165,13 @@ export default function Editor(props: { focused: null | Card }) {
                                 }
 
                                 updateSummariesTimeout = setTimeout(() => {
-                                    console.log(paragraphs);
                                 }, 1000);
                             });
                         } }
                     />
 
                     <HistoryPlugin />
-                    <CommentPlugin focused={ props.focused } />
+                    <CommentPlugin focused={ props.focused } focusedIndex={ props.focusedIndex } />
                 </div>
             </LexicalComposer>
         </>

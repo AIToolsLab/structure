@@ -20,29 +20,21 @@ export default function App() {
             title: 'Test 1',
             summary:
                 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum veritatis sit, cumque quidem voluptatibus ut sunt maxime minus maiores, corporis corrupti aliquid, dicta tenetur quas? Non fugiat reprehenderit amet. Libero provident officiis fugit, velit quas nobis eum vero maxime officia eveniet molestias soluta a repellendus quos sapiente repudiandae mollitia quam, ab asperiores in cum id exercitationem? Quidem ipsa itaque harum laboriosam magni. Quibusdam deleniti expedita, accusantium, dignissimos minus praesentium sequi laudantium qui sapiente dolorum accusamus similique iusto voluptate cumque alias sint delectus pariatur? Veritatis fugiat ipsam facere id deleniti sint officiis voluptatem perspiciatis repellat, omnis officia sapiente nobis vel vero!',
-            start: 0,
-            end: 100,
         },
         {
             title: 'Test 2',
             summary:
                 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum veritatis sit, cumque quidem voluptatibus ut sunt maxime minus maiores, corporis corrupti aliquid, dicta tenetur quas? Non fugiat reprehenderit amet. Libero provident officiis fugit, velit quas nobis eum vero maxime officia eveniet molestias soluta a repellendus quos sapiente repudiandae mollitia quam, ab asperiores in cum id exercitationem? Quidem ipsa itaque harum laboriosam magni. Quibusdam deleniti expedita, accusantium, dignissimos minus praesentium sequi laudantium qui sapiente dolorum accusamus similique iusto voluptate cumque alias sint delectus pariatur? Veritatis fugiat ipsam facere id deleniti sint officiis voluptatem perspiciatis repellat, omnis officia sapiente nobis vel vero!',
-            start: 110,
-            end: 200,
         },
         {
             title: 'Test 3',
             summary:
                 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum veritatis sit, cumque quidem voluptatibus ut sunt maxime minus maiores, corporis corrupti aliquid, dicta tenetur quas? Non fugiat reprehenderit amet. Libero provident officiis fugit, velit quas nobis eum vero maxime officia eveniet molestias soluta a repellendus quos sapiente repudiandae mollitia quam, ab asperiores in cum id exercitationem? Quidem ipsa itaque harum laboriosam magni. Quibusdam deleniti expedita, accusantium, dignissimos minus praesentium sequi laudantium qui sapiente dolorum accusamus similique iusto voluptate cumque alias sint delectus pariatur? Veritatis fugiat ipsam facere id deleniti sint officiis voluptatem perspiciatis repellat, omnis officia sapiente nobis vel vero!',
-            start: 300,
-            end: 350,
         },
         {
             title: 'Test 4',
             summary:
                 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum veritatis sit, cumque quidem voluptatibus ut sunt maxime minus maiores, corporis corrupti aliquid, dicta tenetur quas? Non fugiat reprehenderit amet. Libero provident officiis fugit, velit quas nobis eum vero maxime officia eveniet molestias soluta a repellendus quos sapiente repudiandae mollitia quam, ab asperiores in cum id exercitationem? Quidem ipsa itaque harum laboriosam magni. Quibusdam deleniti expedita, accusantium, dignissimos minus praesentium sequi laudantium qui sapiente dolorum accusamus similique iusto voluptate cumque alias sint delectus pariatur? Veritatis fugiat ipsam facere id deleniti sint officiis voluptatem perspiciatis repellat, omnis officia sapiente nobis vel vero!',
-            start: 400,
-            end: 500,
         },
     ];
 
@@ -51,7 +43,7 @@ export default function App() {
     return (
         <div className={ classes.container }>
             <div className={ classes.essayContainer }>
-                <Editor focused={ (focused !== null ? CARD_TESTS[focused] : null) } />
+                <Editor focused={ (focused !== null ? CARD_TESTS[focused] : null) } focusedIndex={ focused } />
 
                 <div className={ classes.cardsContainer }>
                     {
@@ -63,7 +55,6 @@ export default function App() {
                     }
                 </div>
             </div>
-
         </div>
     );
 }
