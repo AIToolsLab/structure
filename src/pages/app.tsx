@@ -15,39 +15,18 @@ Art Spiegelman's Maus and Anthony Giacchino's Colette are two powerful works tha
 `;
 
 export default function App() {
-    const CARD_TESTS: Card[] = [
-        {
-            title: 'Test 1',
-            summary:
-                'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum veritatis sit, cumque quidem voluptatibus ut sunt maxime minus maiores, corporis corrupti aliquid, dicta tenetur quas? Non fugiat reprehenderit amet. Libero provident officiis fugit, velit quas nobis eum vero maxime officia eveniet molestias soluta a repellendus quos sapiente repudiandae mollitia quam, ab asperiores in cum id exercitationem? Quidem ipsa itaque harum laboriosam magni. Quibusdam deleniti expedita, accusantium, dignissimos minus praesentium sequi laudantium qui sapiente dolorum accusamus similique iusto voluptate cumque alias sint delectus pariatur? Veritatis fugiat ipsam facere id deleniti sint officiis voluptatem perspiciatis repellat, omnis officia sapiente nobis vel vero!',
-        },
-        {
-            title: 'Test 2',
-            summary:
-                'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum veritatis sit, cumque quidem voluptatibus ut sunt maxime minus maiores, corporis corrupti aliquid, dicta tenetur quas? Non fugiat reprehenderit amet. Libero provident officiis fugit, velit quas nobis eum vero maxime officia eveniet molestias soluta a repellendus quos sapiente repudiandae mollitia quam, ab asperiores in cum id exercitationem? Quidem ipsa itaque harum laboriosam magni. Quibusdam deleniti expedita, accusantium, dignissimos minus praesentium sequi laudantium qui sapiente dolorum accusamus similique iusto voluptate cumque alias sint delectus pariatur? Veritatis fugiat ipsam facere id deleniti sint officiis voluptatem perspiciatis repellat, omnis officia sapiente nobis vel vero!',
-        },
-        {
-            title: 'Test 3',
-            summary:
-                'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum veritatis sit, cumque quidem voluptatibus ut sunt maxime minus maiores, corporis corrupti aliquid, dicta tenetur quas? Non fugiat reprehenderit amet. Libero provident officiis fugit, velit quas nobis eum vero maxime officia eveniet molestias soluta a repellendus quos sapiente repudiandae mollitia quam, ab asperiores in cum id exercitationem? Quidem ipsa itaque harum laboriosam magni. Quibusdam deleniti expedita, accusantium, dignissimos minus praesentium sequi laudantium qui sapiente dolorum accusamus similique iusto voluptate cumque alias sint delectus pariatur? Veritatis fugiat ipsam facere id deleniti sint officiis voluptatem perspiciatis repellat, omnis officia sapiente nobis vel vero!',
-        },
-        {
-            title: 'Test 4',
-            summary:
-                'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum veritatis sit, cumque quidem voluptatibus ut sunt maxime minus maiores, corporis corrupti aliquid, dicta tenetur quas? Non fugiat reprehenderit amet. Libero provident officiis fugit, velit quas nobis eum vero maxime officia eveniet molestias soluta a repellendus quos sapiente repudiandae mollitia quam, ab asperiores in cum id exercitationem? Quidem ipsa itaque harum laboriosam magni. Quibusdam deleniti expedita, accusantium, dignissimos minus praesentium sequi laudantium qui sapiente dolorum accusamus similique iusto voluptate cumque alias sint delectus pariatur? Veritatis fugiat ipsam facere id deleniti sint officiis voluptatem perspiciatis repellat, omnis officia sapiente nobis vel vero!',
-        },
-    ];
+    const [cards, updateCards] = useState<Card[]>([]);
 
     const [focused, updateFocused] = useState<number | null>(null);
 
     return (
         <div className={ classes.container }>
             <div className={ classes.essayContainer }>
-                <Editor focused={ (focused !== null ? CARD_TESTS[focused] : null) } focusedIndex={ focused } />
+                <Editor focused={ (focused !== null ? cards[focused] : null) } focusedIndex={ focused } updateCards={ updateCards } />
 
                 <div className={ classes.cardsContainer }>
                     {
-                        CARD_TESTS.map(
+                        cards.map(
                             (card, index) => (
                                 <SummaryCard cardIndex={ index } key={ index } card={ card } selected={ index === focused } onClick={ updateFocused } />
                             )

@@ -1,9 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
     $getRoot,
-    $createRangeSelection,
-    $isParagraphNode,
-    ParagraphNode,
+    $createRangeSelection
 } from 'lexical';
 import { $patchStyleText } from '@lexical/selection';
 
@@ -16,6 +14,8 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 
+import { SERVER_URL } from '../../settings';
+
 import classes from './styles.module.css';
 
 const theme = {
@@ -26,47 +26,7 @@ function Placeholder() {
     return <div className={ classes.placeholder }></div>;
 }
 
-const HighlightSearchButton = () => {
-    const [editor] = useLexicalComposerContext();
-
-    const handleClick = async () => {
-        editor.update(() => {
-            const searchStr = 'Hello';
-            const regex = new RegExp(searchStr, 'gi');
-            const children = $getRoot().getChildren();
-
-            for (const child of children) {
-                if (!$isParagraphNode(child)) continue;
-
-                const paragraphNode = child as ParagraphNode;
-                const text = child.getTextContent();
-                const indexes = [];
-
-                let result;
-                while ((result = regex.exec(text))) {
-                    indexes.push(result.index);
-                }
-
-                for (const index of indexes) {
-                    const selection = $createRangeSelection();
-
-                    (selection.anchor.key = paragraphNode.getKey()),
-                        (selection.anchor.offset = index),
-                        (selection.focus.key = paragraphNode.getKey()),
-                        (selection.focus.offset = index + searchStr.length);
-
-                    $patchStyleText(selection, {
-                        'background-color': '#22f3bc',
-                    });
-                }
-            }
-        });
-    };
-
-    return <button onClick={ handleClick }>Highlight Search</button>;
-};
-
-function CommentPlugin(props: { focused: null | Card; focusedIndex: number | null }) {
+function CommentPlugin(props: { focused: null | Card; focusedIndex: number | null; }) {
     const [editor] = useLexicalComposerContext();
 
     editor.update(() => {
@@ -77,7 +37,7 @@ function CommentPlugin(props: { focused: null | Card; focusedIndex: number | nul
             const keys: string[] = [];
 
             nodeMap.forEach(
-                (k, v) => {
+                (k, _v) => {
                     const node = k;
 
                     if(node.getType() !== 'text') return;
@@ -102,7 +62,7 @@ function CommentPlugin(props: { focused: null | Card; focusedIndex: number | nul
         let count = 0;
 
         nodeMap.forEach(
-            (k, v) => {
+            (k, _v) => {
                 const node = k;
 
                 if(node.getType() !== 'text') return;
@@ -121,7 +81,7 @@ function CommentPlugin(props: { focused: null | Card; focusedIndex: number | nul
     return <></>;
 }
 
-export default function Editor(props: { focused: null | Card; focusedIndex: number | null }) {
+export default function Editor(props: { focused: null | Card; focusedIndex: number | null; updateCards: (_: Card[]) => void }) {
     let updateSummariesTimeout: NodeJS.Timeout | null = null;
 
     const textState = useState('');
@@ -132,9 +92,7 @@ export default function Editor(props: { focused: null | Card; focusedIndex: numb
                 initialConfig={ {
                     namespace: 'essay',
                     theme,
-                    onError(error, editor) {
-                        console.error(error);
-                    },
+                    onError(_error, _editor) {},
                 } }
             >
                 <div className={ classes.editorContainer }>
@@ -164,7 +122,45 @@ export default function Editor(props: { focused: null | Card; focusedIndex: numb
                                     updateSummariesTimeout = null;
                                 }
 
-                                updateSummariesTimeout = setTimeout(() => {
+                                updateSummariesTimeout = setTimeout(async () => {
+                                    const responses = await Promise.all(
+                                        paragraphs.map((paragraph) => 
+                                            fetch(
+                                                `${ SERVER_URL }/summarize`,
+                                                {
+                                                    method: 'POST',
+                                                    headers: {
+                                                        'Content-Type':
+                                                            'application/json',
+                                                    },
+                                                    body: JSON.stringify(
+                                                        {
+                                                            essay: paragraph,
+                                                        }
+                                                    )
+                                                }
+                                            )
+                                        )
+                                    );
+                                    
+                                    const summaries: string[] = [];
+
+                                    for(const res of responses) {
+                                        const json = await res.json();
+
+                                        summaries.push(JSON.parse(json.substring(0, json.length - 3)).summary);
+                                    }
+
+                                    props.updateCards(
+                                        summaries.map(
+                                            (summary, index) => (
+                                                {
+                                                    title: `Summary for paragraph ${ index + 1 }`,
+                                                    summary: summary
+                                                }
+                                            )
+                                        )
+                                    );
                                 }, 1000);
                             });
                         } }
